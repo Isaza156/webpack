@@ -2,13 +2,15 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autoprefixer = require('autoprefixer');
-
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
+    
    entry: './src/app.js',
    output: {
        path: path.resolve(__dirname, './dist'),
        filename: 'js/bundle.js'
    },
+   
    devtool: 'source-map',
    devServer: {
        port: 4000,
@@ -32,7 +34,7 @@ module.exports = {
                                browser: ['last 2 versions']
                            },
                            plugins: () => [
-                               autoprefixer
+                               autoprefixer                               
                            ]
                        }
                    },
@@ -93,6 +95,11 @@ module.exports = {
        new MiniCssExtractPlugin({
            filename: "css/[name]-styles.css",
            chunkFilename: "[id].css"
-       })
+       }),
+   
+       new CopyWebpackPlugin([{
+       from:'src/assets/images/img',to:'assets/images/img'
+       }])  
+
    ]
-};
+}
